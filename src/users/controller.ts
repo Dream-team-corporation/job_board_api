@@ -1,7 +1,6 @@
 import {JsonController, Param, Get, HttpCode, Post, Body, Authorized } from "routing-controllers"
 import { User } from "./entity"
 
-
 @JsonController()
 export default class UserController {
 
@@ -23,4 +22,3 @@ export default class UserController {
     return User.findOneById(id)
   }
 }
-
