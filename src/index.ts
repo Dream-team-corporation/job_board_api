@@ -5,6 +5,9 @@ import { verify } from './jwt'
 import { secret } from './jwt'
 import { User } from "./users/entity"
 import { Server } from 'http'
+import User from './users/entity'
+import UserController from './users/controller'
+import LoginController from './login/controller'
 import * as Koa from 'koa'
 import UserController from './users/controller'
 import LoginController from './logins/controller'
@@ -12,12 +15,11 @@ const app = new Koa()
 const server = new Server(app.callback())
 const port = process.env.PORT || 4001
 
-
 useKoaServer(app, {
   cors: true,
   controllers: [
     UserController,
-    LoginController
+    LoginController,
   ],
   authorizationChecker: (action: Action) => {
    const header: string = action.request.headers.authorization
@@ -35,17 +37,16 @@ useKoaServer(app, {
    return false
  },
  currentUserChecker: async (action: Action) => {
-   const header: string = action.request.headers.authorization
-   if (header && header.startsWith('Bearer ')) {
-     const [ , token ] = header.split(' ')
-
-     if (token) {
-       const {id} = verify(token)
-       return User.findOne(id)
-     }
-   }
-   return undefined
- }
+    const header: string = action.request.headers.authorization
+    if (header && header.startsWith('Bearer ')) {
+      const [ , token ] = header.split(' ')
+      if (token) {
+        const {id} = verify(token)
+        return User.findOneById(id)
+      }
+    }
+    return undefined
+  }
 })
 
 setupDb()
