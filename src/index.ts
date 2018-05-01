@@ -8,6 +8,7 @@ import { Server } from 'http'
 import * as Koa from 'koa'
 import UserController from './users/controller'
 import LoginController from './logins/controller'
+import JobController from './jobs/controller'
 const app = new Koa()
 const server = new Server(app.callback())
 const port = process.env.PORT || 4001
@@ -17,7 +18,8 @@ useKoaServer(app, {
   cors: true,
   controllers: [
     UserController,
-    LoginController
+    LoginController,
+    JobController
   ],
   authorizationChecker: (action: Action) => {
    const header: string = action.request.headers.authorization

@@ -19,7 +19,7 @@ export class Job extends BaseEntity {
     email: string;
 
     @IsString()
-    @Column('text')
+    @Column('text', { nullable: true })
     phoneNumber: string;
 
     @IsString()
@@ -35,18 +35,18 @@ export class Job extends BaseEntity {
     zipcode: string;
 
     @IsString()
-    @Column('text')
+    @Column('text', { nullable: true })
     jobTitle: string;
 
     @IsInt()
     @Min(0)
     @Max(10)
-    @Column('int')
+    @Column('int', { nullable: true })
     preference: number;
 
     @IsString()
-    @Column('text')
-    status: string[];
+    @Column('text', { nullable: true })
+    status: string;
 
     @ManyToOne(_ => User, user => user.jobs)
     user: User;

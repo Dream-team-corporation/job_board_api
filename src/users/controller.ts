@@ -6,7 +6,7 @@ export default class UserController {
 
     @Get("/users/:id([0-9]+)")
     @HttpCode(200)
-    async getStudents(
+    async getUser(
         @Param('id') id: number
     ) {
         return User.findOne(id)
