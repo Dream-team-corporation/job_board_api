@@ -3,8 +3,11 @@ import { Action, BadRequestError, useKoaServer } from "routing-controllers"
 import setupDb from './db'
 import { verify } from './jwt'
 import { secret } from './jwt'
+import { User } from "./users/entity"
 import { Server } from 'http'
 import * as Koa from 'koa'
+import UserController from './users/controller'
+import LoginController from './logins/controller'
 const app = new Koa()
 const server = new Server(app.callback())
 const port = process.env.PORT || 4001
@@ -13,7 +16,8 @@ const port = process.env.PORT || 4001
 useKoaServer(app, {
   cors: true,
   controllers: [
-
+    UserController,
+    LoginController
   ],
   authorizationChecker: (action: Action) => {
    const header: string = action.request.headers.authorization
@@ -37,7 +41,7 @@ useKoaServer(app, {
 
      if (token) {
        const {id} = verify(token)
-       return User.findOneById(id)
+       return User.findOne(id)
      }
    }
    return undefined
