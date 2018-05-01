@@ -6,16 +6,17 @@ import { secret } from './jwt'
 import { Server } from 'http'
 import User from './users/entity'
 import UserController from './users/controller'
+import LoginController from './login/controller'
 import * as Koa from 'koa'
 const app = new Koa()
 const server = new Server(app.callback())
 const port = process.env.PORT || 4001
 
-
 useKoaServer(app, {
   cors: true,
   controllers: [
-    UserController
+    UserController,
+    LoginController,
   ],
   authorizationChecker: (action: Action) => {
    const header: string = action.request.headers.authorization
