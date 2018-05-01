@@ -1,6 +1,8 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
+import { BaseEntity } from 'typeorm/repository/BaseEntity'
+import { IsString, IsEmail, MinLength } from 'class-validator'
+import { Job } from '../jobs/entity'
 import { Exclude } from 'class-transformer';
-import { MinLength, IsString, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcrypt'
 
 @Entity()
@@ -28,4 +30,14 @@ export default class User extends BaseEntity {
     return bcrypt.compare(rawPassword, this.password)
   }
 
+    @OneToMany(_ => Job, job => job.user, {eager:true}) 
+    jobs: Job[]
+
+    async setPassword(pass: string) {
+        this.password = await bcrypt.hash(pass, 10)
+      }
+    
+      checkPassword(pass: string): Promise<boolean> {
+        return bcrypt.compare(pass, this.password)
+      }
 }
