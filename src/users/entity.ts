@@ -1,6 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import { IsString, IsEmail, MinLength } from 'class-validator'
+import { Job } from '../jobs/entity'
 import * as bcrypt from 'bcrypt'
 
 
@@ -18,6 +19,9 @@ export class User extends BaseEntity {
     @MinLength(8)
     @Column('text', { nullable: false })
     password: string;
+
+    @OneToMany(_ => Job, job => job.user, {eager:true}) 
+    jobs: Job[]
 
     async setPassword(pass: string) {
         this.password = await bcrypt.hash(pass, 10)
