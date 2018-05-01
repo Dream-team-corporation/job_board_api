@@ -5,6 +5,7 @@ import { snakeCase } from 'typeorm/util/StringUtils'
 import { User } from './users/entity'
 import { Job } from './jobs/entity'
 
+
 class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
 
   tableName(targetName: string, userSpecifiedName: string): string {
@@ -31,7 +32,6 @@ export default () =>
       entities: [
         User,
         Job,
-
       ],
       synchronize: true,
       logging: true,
