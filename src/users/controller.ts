@@ -1,5 +1,5 @@
-import { JsonController, Post, Param, Get, Body, Authorized } from 'routing-controllers'
-import User from './entity'
+import {JsonController, Param, Get, HttpCode, Post, Body, Authorized } from "routing-controllers"
+import { User } from "./entity"
 
 @JsonController()
 export default class UserController {
