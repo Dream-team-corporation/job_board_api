@@ -3,13 +3,11 @@ import { Action, BadRequestError, useKoaServer } from "routing-controllers"
 import setupDb from './db'
 import { verify } from './jwt'
 import { secret } from './jwt'
-import { User } from "./users/entity"
+import { User } from './users/entity'
 import { Server } from 'http'
 import UserController from './users/controller'
 import LoginController from './login/controller'
 import * as Koa from 'koa'
-import UserController from './users/controller'
-import LoginController from './logins/controller'
 import JobController from './jobs/controller'
 const app = new Koa()
 const server = new Server(app.callback())
