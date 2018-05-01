@@ -11,7 +11,7 @@ export default class UserController {
    async getJob(
        @Param('id') id: number
    ) {
-       return Job.findOne(id)
+    return Job.findOne(id)
    }
 
    @Authorized()
@@ -20,10 +20,10 @@ export default class UserController {
     async getAllJobs(
       @CurrentUser() currentUser: User
     ) {
-        const jobs = await Job.find({
-          where: {user_id:currentUser}
-        })
-        return jobs
+     const jobs = await Job.find({
+       where: {user_id:currentUser}
+     })
+     return jobs
     }
 
   //  @Authorized()
