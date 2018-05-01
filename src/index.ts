@@ -6,7 +6,7 @@ import { secret } from './jwt'
 import { User } from './users/entity'
 import { Server } from 'http'
 import UserController from './users/controller'
-import LoginController from './login/controller'
+import LoginController from './logins/controller'
 import * as Koa from 'koa'
 import JobController from './jobs/controller'
 const app = new Koa()
